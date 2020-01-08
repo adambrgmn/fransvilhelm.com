@@ -1,0 +1,34 @@
+{
+  "name": "fransvilhelm.com",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:adambrgmn/fransvilhelm.com.git",
+  "author": "Adam Bergman <adam@fransvilhelm.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build:hugo": "hugo --gc --minify"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "^4.0.1",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,json,md,yml,html}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "proseWrap": "always"
+  }
+}
