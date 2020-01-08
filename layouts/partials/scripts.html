@@ -1,9 +1,10 @@
+{{ $env := hugo.Environment }}
 {{ $assets := .Scratch.Get "assets" }}
 {{ range $key, $path := (index $assets "js") }}
   {{ $resource := resources.Get $path }}
     
-  {{ if eq $.Hugo.Environment "production" }}
-    {{ $resource = $resource | minify | resources.Fingerprint }}
+  {{ if eq $env "production" }}
+    {{ $resource = $resource | resources.Fingerprint }}
   {{ end }}
 
   <script

@@ -1,0 +1,11 @@
+{{- range $p := .Site.Pages -}}
+{{- range .Aliases }}
+{{ . }} {{ $p.RelPermalink -}}
+{{- end }}
+{{- end -}}
+
+{{- range $from, $to := $.Site.Params.redirects }}
+{{ $from }} {{ $to }} 301!
+{{- end }}
+
+/* /404.html 404

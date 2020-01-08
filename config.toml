@@ -1,3 +1,33 @@
 baseURL = "https://www.fransvilhelm.com/"
 languageCode = "en-us"
 title = "Adam Bergman | Front End developer | Gothenburg"
+
+staticDir = ["statict", "assets"]
+
+enableGitInfo = true
+enableEmoji = true
+enableRobotsTXT = true
+disableAliases = true
+
+[params.redirects]
+  "https://fransvilhelm.netlify.com/*" = "https://www.fransvilhelm.com/:splat"
+  "https://fransvilhelm.com/*" = "https://www.fransvilhelm.com/:splat"
+
+[outputs]
+  home = ["HTML", "REDIRECTS", "HEADERS"]
+
+[mediaTypes."text/netlify"]
+  suffixes = [""]
+  delimiter = ""
+
+[outputFormats.REDIRECTS]
+  mediatype = "text/netlify"
+  baseName = "_redirects"
+  isPlainText = true
+  notAlternative = true
+
+[outputFormats.HEADERS]
+  mediatype = "text/netlify"
+  baseName = "_headers"
+  isPlainText = true
+  notAlternative = true

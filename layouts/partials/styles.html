@@ -1,10 +1,10 @@
 {{ $assets := .Scratch.Get "assets" }}
 {{ range $key, $path := (index $assets "css") }}
-  {{ $options := dict "enableSourceMap" (ne $.Hugo.Environment "production")}}
+  {{ $options := dict "enableSourceMap" (ne hugo.Environment "production")}}
   {{ $resource := resources.Get $path | resources.ToCSS $options }}
     
-  {{ if eq $.Hugo.Environment "production" }}
-    {{ $resource = $resource | minify | resources.Fingerprint }}
+  {{ if eq hugo.Environment "production" }}
+    {{ $resource = $resource | resources.Fingerprint }}
   {{ end }}
 
   <link
