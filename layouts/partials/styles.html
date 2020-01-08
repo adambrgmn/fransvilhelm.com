@@ -1,0 +1,15 @@
+{{ $assets := .Scratch.Get "assets" }}
+{{ range $key, $path := (index $assets "css") }}
+  {{ $options := dict "enableSourceMap" (ne $.Hugo.Environment "production")}}
+  {{ $resource := resources.Get $path | resources.ToCSS $options }}
+    
+  {{ if eq $.Hugo.Environment "production" }}
+    {{ $resource = $resource | minify | resources.Fingerprint }}
+  {{ end }}
+
+  <link
+    rel="stylesheet"
+    href="{{ $resource.RelPermalink }}"
+    {{ with $resource.Data }}integrity="{{ .Integrity }}"{{ end }}
+  />
+{{ end }}

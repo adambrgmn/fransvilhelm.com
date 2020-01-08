@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en-us" }}">
+  <head>
+    {{ partial "assets.html" . }}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    {{ $title := delimit (slice .Title "-" .Site.Title) " " }}
+    {{ if .IsHome }}{{ $title = .Site.Title }}{{ end }}
+    <title>{{- $title -}}</title>
+    
+    {{ block "meta" . }}
+      {{ partial "meta.html" . }}
+    {{ end }}
+
+
+    {{ range .AlternativeOutputFormats }}
+      <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
+    {{ end }}
+
+    {{ block "styles" . }}
+      {{ partial "styles.html" . }}
+    {{ end }}
+  </head>
+
+  <body>
+    {{ block "header" . }}
+      {{ partial "header.html" . }}
+    {{ end }}
+
+    {{ block "main" . }}
+    {{ end }}
+
+    {{ block "footer" . }}
+      {{ partial "footer.html" . }}
+    {{ end }}
+
+    {{ block "scripts" . }}
+      {{ partial "scripts.html" . }}
+    {{ end }}
+  </body>
+</html>
