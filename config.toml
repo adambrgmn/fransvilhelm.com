@@ -2,7 +2,7 @@ baseURL = "https://www.fransvilhelm.com/"
 languageCode = "en-us"
 title = "Adam Bergman | Front End developer | Gothenburg"
 
-staticDir = ["statict", "assets"]
+staticDir = ["static", "assets"]
 
 enableGitInfo = true
 enableEmoji = true
