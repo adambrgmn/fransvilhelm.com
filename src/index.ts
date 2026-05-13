@@ -7,6 +7,6 @@ export default {
     // ).first();
 
     // return Response.json(row);
-    return Response.json({ success: true })
+    return Response.json({ success: true });
   },
 };

@@ -1,19 +1,32 @@
 {
   "name": "fransvilhelm",
   "version": "0.0.0",
-  "description": "Site source code",
-  "type": "module",
-  "author": "Adam Bergman <adam@fransvilhelm.com>",
-  "license": "MIT",
   "private": true,
+  "description": "Site source code",
+  "license": "MIT",
+  "author": "Adam Bergman <adam@fransvilhelm.com>",
+  "type": "module",
   "scripts": {
-    "dev": "node --env-file .env ./node_modules/.bin/sst dev"
+    "dev": "node --env-file .env ./node_modules/.bin/sst dev",
+    "prepare": "husky",
+    "lint": "oxlint --type-aware && oxfmt --check",
+    "lint:fix": "oxlint --fix --fix-suggestions --type-aware",
+    "format": "oxfmt"
   },
   "dependencies": {
     "sst": "4.14.1"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "4.20260511.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.4",
+    "oxfmt": "^0.49.0",
+    "oxlint": "^1.64.0",
+    "oxlint-tsgolint": "^0.22.1",
     "typescript": "^6.0.3"
+  },
+  "lint-staged": {
+    "*": "oxfmt --write --no-error-on-unmatched-pattern",
+    "*.{js,cjs,ts,tsx}": "oxlint --fix --fix-suggestions --type-aware"
   }
 }
