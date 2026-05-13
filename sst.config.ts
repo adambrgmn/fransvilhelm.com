@@ -16,6 +16,12 @@ export default $config({
     const main = new sst.cloudflare.Worker('Main', {
       handler: 'src/main.ts',
       url: true,
+      domain:
+        $app.stage === 'production'
+          ? { name: 'fransvilhelm.com' }
+          : $app.stage === 'staging'
+            ? { name: `${$app.stage}.fransvilhelm.com` }
+            : undefined,
     });
 
     return {
