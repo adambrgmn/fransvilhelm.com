@@ -14,7 +14,7 @@ export default $config({
   },
   async run() {
     const main = new sst.cloudflare.Worker('Main', {
-      handler: 'src/index.ts',
+      handler: 'src/main.ts',
       url: true,
     });
 
