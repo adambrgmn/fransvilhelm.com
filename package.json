@@ -1,12 +1,17 @@
 {
-  "name": "fransvilhelm.com",
+  "name": "fransvilhelm",
   "version": "0.0.0",
   "description": "Site source code",
-  "main": "index.js",
+  "type": "module",
   "author": "Adam Bergman <adam@fransvilhelm.com>",
   "license": "MIT",
   "private": true,
   "scripts": {},
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "sst": "4.14.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20260511.1",
+    "typescript": "^6.0.3"
+  }
 }
