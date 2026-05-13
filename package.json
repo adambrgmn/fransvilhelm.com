@@ -8,6 +8,8 @@
   "type": "module",
   "scripts": {
     "dev": "node --env-file .env ./node_modules/.bin/sst dev",
+    "deploy:prod": "node --env-file .env ./node_modules/.bin/sst deploy --stage production",
+    "deploy:staging": "node --env-file .env ./node_modules/.bin/sst deploy --stage staging",
     "prepare": "husky",
     "lint": "oxlint --type-aware && oxfmt --check",
     "lint:fix": "oxlint --fix --fix-suggestions --type-aware",

@@ -18,7 +18,9 @@ export default $config({
       url: true,
       domain:
         $app.stage === 'production'
-          ? { name: 'fransvilhelm.com' }
+          ? {
+              name: 'fransvilhelm.com',
+            }
           : $app.stage === 'staging'
             ? { name: `${$app.stage}.fransvilhelm.com` }
             : undefined,
