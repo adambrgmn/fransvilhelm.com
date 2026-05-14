@@ -16,14 +16,7 @@ export default $config({
     const main = new sst.cloudflare.Worker('Main', {
       handler: 'src/main.ts',
       url: true,
-      domain:
-        $app.stage === 'production'
-          ? {
-              name: 'fransvilhelm.com',
-            }
-          : $app.stage === 'staging'
-            ? { name: `${$app.stage}.fransvilhelm.com` }
-            : undefined,
+      domain: getStageDomain('fransvilhelm.com', $app.stage),
     });
 
     return {
@@ -31,3 +24,52 @@ export default $config({
     };
   },
 });
+
+function getStageDomain(domain: string, stage: string) {
+  if (stage === 'staging') {
+    return { name: `${$app.stage}.${domain}` };
+  }
+
+  if (stage === 'production') {
+    const zone = cloudflare.getZoneOutput({ filter: { name: domain } });
+
+    // oxlint-disable-next-line no-new
+    new cloudflare.DnsRecord('WwwRecord', {
+      zoneId: zone.id,
+      name: `www.${domain}`,
+      type: 'CNAME',
+      content: domain,
+      ttl: 1,
+      proxied: true,
+      comment: 'Redirect www to apex, managed by SST',
+    });
+
+    // oxlint-disable-next-line no-new
+    new cloudflare.Ruleset('WwwRedirect', {
+      zoneId: zone.id,
+      name: 'Redirect www to apex',
+      kind: 'zone',
+      phase: 'http_request_dynamic_redirect',
+      rules: [
+        {
+          description: `Redirect www.${domain} to ${domain}`,
+          expression: `(http.host eq "www.${domain}")`,
+          action: 'redirect',
+          actionParameters: {
+            fromValue: {
+              statusCode: 301,
+              targetUrl: {
+                expression: `concat("https://${domain}", http.request.uri.path)`,
+              },
+              preserveQueryString: true,
+            },
+          },
+        },
+      ],
+    });
+
+    return { name: domain };
+  }
+
+  return undefined;
+}
