@@ -7,6 +7,7 @@
 declare module "sst" {
   export interface Resource {
     "Main": import("@cloudflare/workers-types").Service
+    "VisitorsStore": import("@cloudflare/workers-types").KVNamespace
   }
 }
 
