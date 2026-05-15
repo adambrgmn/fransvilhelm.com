@@ -9,6 +9,10 @@ app.get('/', async (c) => {
   return c.html(generateIndex());
 });
 
+app.get('/favicon.svg', (c) => {
+  return c.text(generateFavicon(), 200, { 'Content-Type': 'image/svg+xml' });
+});
+
 app.put('/api/visitors', async (c) => {
   let visitors = Number(await Resource.VisitorsStore.get(VISITORS_KEY));
   if (Number.isNaN(visitors)) visitors = 0;
@@ -20,8 +24,7 @@ app.put('/api/visitors', async (c) => {
 });
 
 app.get('/*', async (c) => {
-  c.status(404);
-  return c.text('Not found');
+  return c.text('Not found', 404);
 });
 
 export default app;
@@ -34,6 +37,7 @@ function generateIndex() {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
         <title>Frans Vilhelm</title>
 
         <style>
@@ -77,6 +81,20 @@ function generateIndex() {
         </script>
       </body>
     </html>
+  `;
+}
+
+function generateFavicon() {
+  return html`
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="30" fill="url(#favicon_gradient)" />
+      <defs>
+        <linearGradient id="favicon_gradient" x1="32" y1="2" x2="32" y2="62" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#0000ff" />
+          <stop offset="1" stop-color="#ffffff" />
+        </linearGradient>
+      </defs>
+    </svg>
   `;
 }
 
